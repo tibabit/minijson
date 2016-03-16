@@ -7,7 +7,6 @@
 
 #include "minijson.h"
 
-
 int main()
 {
 	json_object_t * json_obj = json_object_new();

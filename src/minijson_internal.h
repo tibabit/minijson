@@ -16,10 +16,11 @@
 
 // common aliases
 typedef void stream_t;
+typedef struct json_base json_base_t;
 
 /****************** function types *****************/
-typedef void (*json_write_fn_t)		(void * json, stream_t * stream);
-typedef void (*json_destroy_fn_t)	(void * json);
+typedef void (*json_write_fn_t)		(json_base_t * json, stream_t * stream);
+typedef void (*json_destroy_fn_t)	(json_base_t * json);
 
 
 /**************** JSON types ******************/
