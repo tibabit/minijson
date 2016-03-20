@@ -12,7 +12,13 @@
 /*************** CHECK MACROS ***************/
 #define CHECK_NULL(ptr)					\
     if ((void*)ptr == NULL)				\
-return NULL;
+        return NULL;
+
+#ifdef DEBUG
+#define debug(fmt, ...)     printf(fmt, ##__VA_ARGS__)
+#else
+#define debug(fmt, ...)
+#endif
 
 // common aliases
 typedef void            stream_t;
@@ -43,7 +49,7 @@ typedef struct json_base
 typedef struct json_object 		json_object_t;		// represents an JSON objects
 typedef struct json_array 		json_array_t;		// represents an JSON objects
 typedef struct json_primitive	        json_primitive_t;
-typedef json_primitive_t		json_int_t;			// int
+typedef json_primitive_t		json_int_t;		// int
 typedef json_primitive_t		json_uint_t;		// unsigned int
 typedef json_primitive_t		json_short_t;		// short
 typedef json_primitive_t		json_ushort_t;		// unsigned short

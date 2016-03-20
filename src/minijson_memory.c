@@ -12,22 +12,22 @@
 
 void * json_alloc(size_t size)
 {
-	return calloc(DEFAULT_NUM_ELEMENTS_TO_ALLOCATE, size);
+    return calloc(DEFAULT_NUM_ELEMENTS_TO_ALLOCATE, size);
 }
 
 void json_free(void * ptr)
 {
-	if(ptr != NULL)
-	{
-		free(ptr);
-	}
+    if(ptr != NULL)
+    {
+        free(ptr);
+    }
 }
 
 void json_copy(void * dst, void *src, size_t size)
 {
-	if (dst == NULL || src == NULL)
-	{
-		return;
-	}
-	memcpy(dst, src, size);
+    if (dst == NULL || src == NULL)
+    {
+        return;
+    }
+    memcpy(dst, src, size);
 }

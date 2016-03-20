@@ -3,4 +3,4 @@ CC=gcc
 DEPS:=$(wildcard *.h)
 %.o:%.c $(DEPS)
 	@echo Compilng $< ...
-	@$(CC) -c -Wall $< -o $@
+	@$(CC) -c -g -Wall -DDEBUG $< -o $@

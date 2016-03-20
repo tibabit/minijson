@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "minijson_internal.h"
 #include "minijson.h"
@@ -22,9 +23,9 @@
 
 typedef struct json_object
 {
-	json_write_fn_t		write;
-	json_destroy_fn_t	destroy;
-	collection_ptr_t	children;
+    json_write_fn_t		write;
+    json_destroy_fn_t	destroy;
+    collection_ptr_t	children;
 }json_object_t;
 
 void json_object_write_internal(json_object_t * json, stream_t * stream);
@@ -32,59 +33,95 @@ void json_object_destroy_internal(json_object_t * json_obj);
 
 json_object_t * json_object_new(void)
 {
-	json_object_t * json_obj = json_alloc(sizeof(json_object_t));
-	json_obj->children = collection_new();
+    json_object_t * json_obj = json_alloc(sizeof(json_object_t));
+    json_obj->children = collection_new();
 
-	CHECK_NULL(json_obj);
+    CHECK_NULL(json_obj);
 
-	json_obj->write = (json_write_fn_t)json_object_write_internal;
-	json_obj->destroy = (json_destroy_fn_t)json_object_destroy_internal;
+    json_obj->write = (json_write_fn_t)json_object_write_internal;
+    json_obj->destroy = (json_destroy_fn_t)json_object_destroy_internal;
 
-	return json_obj;
+    return json_obj;
 }
 
 void json_object_add(json_object_t * json_obj, const string_t key, void * item)
 {
-	key_value_pair_t * pair = key_value_pair_new(key, item);
-	collection_add(json_obj->children, pair);
+    key_value_pair_t * pair = key_value_pair_new(key, item);
+    collection_add(json_obj->children, pair);
 }
 
 void json_object_destroy_internal(json_object_t * json_obj)
 {
-	int i = 0;
-	if (json_obj == NULL)
-	{
-		return;
-	}
-	if (json_obj->children)
-	{
-		for(i = 0; i < json_obj->children->count; i++)
-		{
-			key_value_pair_t * pair = (key_value_pair_t *)collection_at(json_obj->children, i);
-			json_base_t * child = (json_base_t *)(key_value_pair_get_value(pair));
+    int i = 0;
+    if (json_obj == NULL)
+    {
+        return;
+    }
+    if (json_obj->children)
+    {
+        for(i = 0; i < json_obj->children->count; i++)
+        {
+            key_value_pair_t * pair = (key_value_pair_t *)collection_at(json_obj->children, i);
+            json_base_t * child = (json_base_t *)(key_value_pair_get_value(pair));
 
-			child->destroy(child);
-			key_value_pair_destroy(pair);
-		}
-		collection_destroy(json_obj->children);
-	}
-	json_free(json_obj);
+            child->destroy(child);
+            key_value_pair_destroy(pair);
+        }
+        collection_destroy(json_obj->children);
+    }
+    json_free(json_obj);
 }
 
 void json_object_write_internal(json_object_t * json, stream_t * stream)
 {
-	int i = 0;
-	fprintf(stream, "%c\n", JSON_OBJECT_BEGIN);
+    int i = 0;
+    fprintf(stream, "%c\n", JSON_OBJECT_BEGIN);
 
-	for(i = 0; i < json->children->count; i++)
-	{
-		key_value_pair_t * pair = (key_value_pair_t *)collection_at(json->children, i);
-		json_base_t * child = (json_base_t *)(key_value_pair_get_value(pair));
+    for(i = 0; i < json->children->count; i++)
+    {
+        key_value_pair_t * pair = (key_value_pair_t *)collection_at(json->children, i);
+        json_base_t * child = (json_base_t *)(key_value_pair_get_value(pair));
 
-		fprintf(stream, "\"%s\" : ", key_value_pair_get_key(pair));
-		child->write(child, stream);
-		fprintf(stream, "%s\n", i == json->children->count - 1 ? "" : ",");
-	}
+        fprintf(stream, "\"%s\" : ", key_value_pair_get_key(pair));
+        child->write(child, stream);
+        fprintf(stream, "%s\n", i == json->children->count - 1 ? "" : ",");
+    }
 
-	fprintf(stream, "%c\n", JSON_OBJECT_END);
+    fprintf(stream, "%c\n", JSON_OBJECT_END);
+}
+
+int json_object_keys(json_object_t * json, string_t ** keys)
+{
+    int i, num_keys = json->children->count;
+    if (num_keys == 0)
+    {
+        return num_keys;
+    }
+    *keys = json_alloc(num_keys * sizeof(string_t));
+
+    for(i = 0; i < num_keys; i++)
+    {
+        (*keys)[i] = strdup(key_value_pair_get_key(collection_at(json->children, i)));
+    }
+    return num_keys;
+}
+
+json_base_t * json_object_get(json_object_t * json, const string_t key)
+{
+    int i, num_keys = json->children->count;
+    if (num_keys == 0)
+    {
+        return NULL;
+    }
+
+    for(i = 0; i < num_keys; i++)
+    {
+        key_value_pair_t * pair = (key_value_pair_t *)collection_at(json->children, i);
+        string_t current_key = key_value_pair_get_key(pair);
+        if (strcmp(key, current_key) == 0)
+        {
+            return (json_base_t *)(key_value_pair_get_value(pair));
+        }
+    }
+    return NULL;
 }
