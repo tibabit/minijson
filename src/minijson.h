@@ -53,7 +53,7 @@ void            json_ldouble_set(json_ldouble_t * json, ldouble value);
   
 json_string_t*	json_string_new(string_t value);
 string_t        json_string_get(json_string_t * json);
-void            json_string_t_set(json_string_t * json, string_t value);
+void            json_string_set(json_string_t * json, string_t value);
   
 /*************** JSON type manipulation functions *************************/
 

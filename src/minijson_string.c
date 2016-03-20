@@ -44,3 +44,17 @@ void json_string_destroy_internal(json_string_t * json)
     }
     json_free(json);
 }
+
+string_t json_string_get(json_string_t * json)
+{
+    return json->value;
+}
+
+void json_string_set(json_string_t * json, string_t value)
+{
+    if (json->value)
+    {
+        json_free(json->value);
+    }
+    json->value = strdup(value);
+}

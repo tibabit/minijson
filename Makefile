@@ -3,7 +3,6 @@ AR=ar
 
 include src/src.mk
 
-DEPS:=$(wildcard src/*.h)
 SRC:=$(wildcard src/*.c)
 OBJ=$(SRC:%.c=%.o)
 

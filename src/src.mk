@@ -1,5 +1,6 @@
 CC=gcc
 
-%.o:%.c
+DEPS:=$(wildcard *.h)
+%.o:%.c $(DEPS)
 	@echo Compilng $< ...
 	@$(CC) -c -Wall $< -o $@
