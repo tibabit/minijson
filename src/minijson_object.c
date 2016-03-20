@@ -43,7 +43,7 @@ json_object_t * json_object_new(void)
 	return json_obj;
 }
 
-void json_object_add(json_object_t * json_obj, const char * const key, void * item)
+void json_object_add(json_object_t * json_obj, const string_t key, void * item)
 {
 	key_value_pair_t * pair = key_value_pair_new(key, item);
 	collection_add(json_obj->children, pair);
