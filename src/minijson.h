@@ -12,8 +12,11 @@
 
 /**************** Constructors ****************/
 
-json_object_t *		json_object_new(void);
-void json_object_add(json_object_t * json_obj, const string_t key, void * item);
+json_object_t *	json_object_new(void);
+void            json_object_add(json_object_t * json_obj, const string_t key, void * item);
+
+json_array_t *  json_array_new(void);
+void            json_array_add(json_array_t * json, void * item);
 
 json_int_t*	json_int_new(int value);
 int             json_int_get(json_int_t * json);

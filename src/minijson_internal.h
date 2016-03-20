@@ -41,6 +41,7 @@ typedef struct json_base
 
 
 typedef struct json_object 		json_object_t;		// represents an JSON objects
+typedef struct json_array 		json_array_t;		// represents an JSON objects
 typedef struct json_primitive	        json_primitive_t;
 typedef json_primitive_t		json_int_t;			// int
 typedef json_primitive_t		json_uint_t;		// unsigned int
