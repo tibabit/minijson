@@ -13,6 +13,6 @@ all: $(OBJ)
 
 clean:
 	@echo Cleaning...
-	@rm src/*.o
-	@rm $(OUTPUT)
+	@rm -f src/*.o
+	@rm -f $(OUTPUT)
 	@echo Done.
