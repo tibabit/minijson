@@ -1,9 +1,11 @@
 minijson
 ========
-[![Build Status](https://travis-ci.org/tibabit/minijson.svg?branch=master)](https://travis-ci.org/tibabit/minijson)
+| Linux Build |
+|:-----------:|
+|[![Build Status](https://travis-ci.org/tibabit/minijson.svg?branch=master)](https://travis-ci.org/tibabit/minijson)|
 
 ### Overview
-This is a very lightweight library for working with ```JSON``` type objects in ```C/C++```. It provides a very simpe API to create and manipulate json objects. For now following datatypes or supported -
+This is a very lightweight library for working with `JSON` type objects in `C/C++`. It provides a very simpe API to create and manipulate json objects. For now following datatypes or supported -
 
 ##### Primitive data types
  - json_int       : int
