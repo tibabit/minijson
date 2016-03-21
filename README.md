@@ -21,6 +21,7 @@ This is a very lightweight library for working with `JSON` type objects in `C/C+
 ```
 ##### Complex data types
 ```C
- - json_object_t    : It can hold key value pairs, where key is a string and value can be any of the json types defined
+ - json_object_t    : It can hold key value pairs, where key is a string and
+                      value can be any of the json types defined
  - json_array_t     : It can hold any number of elements of any json types
 ```
