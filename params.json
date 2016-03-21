@@ -1,0 +1,6 @@
+{
+  "name": "Minijson",
+  "tagline": "",
+  "body": "minijson\r\n========\r\n| Linux Build |\r\n|:-----------:|\r\n|[![Build Status](https://travis-ci.org/tibabit/minijson.svg?branch=master)](https://travis-ci.org/tibabit/minijson)|\r\n\r\n### Overview\r\nThis is a very lightweight library for working with `JSON` type objects in `C/C++`. It provides a very simpe API to create and manipulate json objects. For now following datatypes or supported -\r\n\r\n##### Primitive data types\r\n```C\r\n - json_int_t       : int\r\n - json_uint_t      : unsigned int\r\n - json_short_t     : short\r\n - json_ushort_t    : unsigned short\r\n - json_long_t      : long\r\n - json_ulong_t     : unsigned long\r\n - json_float_t     : float\r\n - json_double_t    : double\r\n - json_string_t    : char *\r\n```\r\n##### Complex data types\r\n```C\r\n - json_object_t    : It can hold key value pairs, where key is a string and value can be any of the json types defined\r\n - json_array_t     : It can hold any number of elements of any json types\r\n```\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
