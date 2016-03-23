@@ -24,11 +24,8 @@ int main()
 
     num_keys = json_object_keys(json_obj, &keys);
 
-    printf("number of keys : %d\n", num_keys);
-
     for (i = 0; i < num_keys; i++)
     {
-        printf("%s ", keys[i]);
         free(keys[i]);
     }
     free(keys);

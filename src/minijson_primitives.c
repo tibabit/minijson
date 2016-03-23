@@ -50,10 +50,11 @@
     }
 
 #define JSON_PRIMITIVE_WRITE_DEFINITION(type_short, format)			\
-    void json_##type_short##_write_internal(json_##type_short##_t * json, 	\
+    size_t json_##type_short##_write_internal(json_##type_short##_t * json,     \
+            json_conf_t * json_conf,                                            \
             stream_t * stream)						        \
     {										\
-        fprintf(stream, format, json->data.value_##type_short);			\
+        return fprintf(stream, format, json->data.value_##type_short);		\
     }
 
 typedef struct json_primitive

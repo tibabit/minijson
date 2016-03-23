@@ -1,18 +1,30 @@
 #include "collection.h"
 
 #include <stdlib.h>
-#include <string.h>
 
 #define COLLECTION_CAPACITY_BIN_SIZE    16
-#define ITEM_SIZE                       sizeof(item_t)
 
-collection_ptr_t collection_new(void)
+typedef struct _collection
 {
-    collection_ptr_t collection = calloc(1, sizeof(collection_t));
+    void * items;
+    size_t count;
+    size_t capacity;
+    size_t item_size;
+}collection_t;
+
+collection_t * collection_new(size_t item_size)
+{
+    collection_t * collection = calloc(1, sizeof(collection_t));
+
+    if (collection == NULL)
+    {
+        return NULL;
+    }
+    collection->item_size = item_size;
 
     return collection;
 }
-void collection_destroy(collection_ptr_t collection)
+void collection_destroy(collection_t * collection)
 {
     if (collection->items)
     {
@@ -20,21 +32,26 @@ void collection_destroy(collection_ptr_t collection)
     }
     free(collection);
 }
-void collection_add(collection_ptr_t collection, item_t item)
+void collection_add(collection_t * collection, void * item)
 {
     if (collection->count == collection->capacity)
     {
         collection->items = realloc(collection->items,
-            (collection->count + COLLECTION_CAPACITY_BIN_SIZE) * ITEM_SIZE);
+                (collection->count + COLLECTION_CAPACITY_BIN_SIZE) * collection->item_size);
     }
-    collection->items[collection->count] =  item;
+    memcpy(collection->items + collection->count * collection->item_size, item, collection->item_size);
     collection->count++;
 }
-item_t collection_at(collection_ptr_t collection, int index)
+int collection_at(collection_t * collection, int index, void * item)
 {
     if (index < collection->count)
     {
-        return collection->items[index];
+        memcpy(item, collection->items + index * collection->item_size, collection->item_size);
+        return 1;
     }
-    return NULL;
+    return 0;
+}
+size_t collection_count(collection_t * collection)
+{
+    return collection->count;
 }

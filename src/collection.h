@@ -1,19 +1,13 @@
 #ifndef COLLECTION_H_
 #define COLLECTION_H_
 
-typedef void * item_t;
+#include <string.h>
 
-typedef struct _collection
-{
-    item_t * items;
-    int     count;
-    int     capacity;
-}collection_t;
+typedef struct _collection collection_t;
 
-typedef collection_t * collection_ptr_t;
-
-collection_ptr_t    collection_new      (void);
-void                collection_destroy  (collection_ptr_t collection);
-void                collection_add      (collection_ptr_t collection, item_t item);
-item_t              collection_at       (collection_ptr_t collection, int index);
+collection_t *  collection_new(size_t item_size);
+void            collection_destroy(collection_t * collection);
+void            collection_add(collection_t * collection, void * item);
+int             collection_at(collection_t * collection, int index, void * item);
+size_t          collection_count(collection_t * collection);
 #endif  // COLLECTION_H_

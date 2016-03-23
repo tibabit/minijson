@@ -16,23 +16,25 @@
 
 // DECORATION MACROS
 
-#define JSON_ARRAY_BEGIN			'['
-#define JSON_ARRAY_END				']'
+#define JSON_ARRAY_BEGIN    '['
+#define JSON_ARRAY_END      ']'
 
 typedef struct json_array
 {
-    json_write_fn_t		write;
+    json_write_fn_t	write;
     json_destroy_fn_t	destroy;
-    collection_ptr_t	children;
+    collection_t *	children;
 }json_array_t;
 
-void json_array_write_internal(json_array_t * json, stream_t * stream);
+size_t json_array_write_internal(json_array_t * json,
+        json_conf_t * json_conf,
+        stream_t * stream);
 void json_array_destroy_internal(json_array_t * json);
 
 json_array_t * json_array_new(void)
 {
     json_array_t * json = json_alloc(sizeof(json_array_t));
-    json->children = collection_new();
+    json->children = collection_new(sizeof(json_base_t * ));
 
     CHECK_NULL(json);
 
@@ -44,7 +46,7 @@ json_array_t * json_array_new(void)
 
 void json_array_add(json_array_t * json, void * item)
 {
-    collection_add(json->children, item);
+    collection_add(json->children, &item);
 }
 
 void json_array_destroy_internal(json_array_t * json)
@@ -56,9 +58,11 @@ void json_array_destroy_internal(json_array_t * json)
     }
     if (json->children)
     {
-        for(i = 0; i < json->children->count; i++)
+        for(i = 0; i < collection_count(json->children); i++)
         {
-            json_base_t * child = (json_base_t *)collection_at(json->children, i);
+            json_base_t * child;
+            collection_at(json->children, i, &child);
+
 
             child->destroy(child);
         }
@@ -67,18 +71,32 @@ void json_array_destroy_internal(json_array_t * json)
     json_free(json);
 }
 
-void json_array_write_internal(json_array_t * json, stream_t * stream)
+size_t json_array_write_internal(json_array_t * json,
+        json_conf_t * json_conf,
+        stream_t * stream)
 {
     int i = 0;
-    fprintf(stream, "%c\n", JSON_ARRAY_BEGIN);
+    size_t total_chars = 0;
 
-    for(i = 0; i < json->children->count; i++)
+    fflush(stream);
+    total_chars += fprintf(stream, "%c", JSON_ARRAY_BEGIN);
+    total_chars += fprintf(stream, "%s", json_conf->new_line);
+
+    json_conf->set_level(json_conf, json_conf->level + 1);
+    for(i = 0; i < collection_count(json->children); i++)
     {
-        json_base_t * child = (json_base_t *)collection_at(json->children, i);
+        json_base_t * child;
+        collection_at(json->children, i, &child);
 
-        child->write(child, stream);
-        fprintf(stream, "%s\n", i == json->children->count - 1 ? "" : ",");
+        total_chars += fprintf(stream, "%s", json_conf->level_spaces);
+        total_chars += child->write(child, json_conf, stream);
+        total_chars += fprintf(stream, "%s%s", i == collection_count(json->children) - 1 ? "" : ",",
+                json_conf->new_line);
     }
 
-    fprintf(stream, "%c\n", JSON_ARRAY_END);
+    json_conf->set_level(json_conf, json_conf->level - 1);
+
+    total_chars += fprintf(stream, "%c", JSON_ARRAY_END);
+
+    return total_chars;
 }
