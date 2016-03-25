@@ -25,9 +25,9 @@
 
 typedef struct json_object
 {
-    json_write_fn_t	write;
-    json_destroy_fn_t	destroy;
-    collection_t *	children;
+    json_write_fn_t     write;
+    json_destroy_fn_t   destroy;
+    collection_t *      children;
 }json_object_t;
 
 size_t json_object_write_internal(json_object_t * json,
@@ -104,7 +104,7 @@ size_t json_object_write_internal(json_object_t * json,
 
         total_chars += stream->write(stream, "%s", i == num_children - 1 ? "" : ",");
         total_chars += stream->write(stream, "%s", json_conf->new_line);
-                
+
     }
 
     json_conf->set_level(json_conf, json_conf->level - 1);

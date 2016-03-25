@@ -15,38 +15,38 @@
 
 typedef struct _key_value_pair
 {
-	char *	key;
-	void *	value;
+    char *  key;
+    void *  value;
 }key_value_pair_t;
 
 
 key_value_pair_t * key_value_pair_new(const char *key, void *value)
 {
-	key_value_pair_t * pair = json_alloc(sizeof(key_value_pair_t));
+    key_value_pair_t * pair = json_alloc(sizeof(key_value_pair_t));
 
-	CHECK_NULL(pair);
+    CHECK_NULL(pair);
 
-	pair->key = strdup(key);
-	pair->value = value;
+    pair->key = strdup(key);
+    pair->value = value;
 
-	return pair;
+    return pair;
 }
 
 void key_value_pair_destroy(key_value_pair_t * pair)
 {
-	if(pair == NULL)
-	{
-		return;
-	}
-	json_free(pair->key);
-	json_free(pair);
+    if(pair == NULL)
+    {
+        return;
+    }
+    json_free(pair->key);
+    json_free(pair);
 }
 
 char * key_value_pair_get_key(key_value_pair_t * pair)
 {
-	return pair->key;
+    return pair->key;
 }
 void * key_value_pair_get_value(key_value_pair_t * pair)
 {
-	return pair->value;
+    return pair->value;
 }

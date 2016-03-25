@@ -19,7 +19,7 @@ size_t json_stream_write_buffer_internal(json_stream_t * json_stream, string_t f
 size_t json_stream_write_stream_internal(json_stream_t * json_stream, string_t format, ...);
 
 json_stream_t * json_stream_new(json_stream_type_t type, void **ptr)
-{   
+{
     json_stream_t * json_stream = json_alloc(sizeof(json_stream_t));
 
     CHECK_NULL(json_stream);
@@ -58,7 +58,7 @@ size_t json_stream_write_buffer_internal(json_stream_t * json_stream, string_t f
     size_t len = vfprintf(json_stream->null, format, args);
 
     va_end(args);
-    
+
     if (json_stream->buffer.size + len >= json_stream->buffer.capacity)
     {
         size_t needed = ((len / BUF_SIZE) + 1) * BUF_SIZE;
