@@ -22,7 +22,7 @@
 #endif
 
 // common aliases
-typedef void            stream_t;
+typedef struct          json_stream json_stream_t;
 typedef struct          json_base json_base_t;
 typedef struct          json_conf json_conf_t;
 typedef char *          string_t;
@@ -34,7 +34,7 @@ typedef long double     ldouble;
 /****************** function types *****************/
 typedef size_t  (*json_write_fn_t)  (json_base_t * json,
         json_conf_t * json_conf,
-        stream_t * stream);
+        json_stream_t * stream);
 typedef void    (*json_destroy_fn_t)(json_base_t * json);
 
 
@@ -49,14 +49,6 @@ typedef struct json_base
     json_destroy_fn_t	destroy;
 }json_base_t;
 
-typedef struct json_conf
-{
-    int         level;
-    int         indent;
-    string_t    new_line;
-    string_t    level_spaces;
-    void        (* set_level)(json_conf_t *self, int);
-}json_conf_t;
 
 typedef struct json_object      json_object_t;		// represents an JSON objects
 typedef struct json_array       json_array_t;		// represents an JSON objects

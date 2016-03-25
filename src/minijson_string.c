@@ -4,6 +4,8 @@
 #include "minijson.h"
 #include "minijson_internal.h"
 #include "minijson_memory.h"
+#include "minijson_stream.h"
+#include "minijson_conf.h"
 
 
 typedef struct json_string
@@ -13,7 +15,7 @@ typedef struct json_string
     string_t          value;
 }json_string_t;
 
-void json_string_write_internal(json_string_t * json, stream_t * stream);
+size_t json_string_write_internal(json_string_t * json, json_conf_t * json_conf, json_stream_t * stream);
 void json_string_destroy_internal(json_string_t * json);
 
 json_string_t* json_string_new(string_t value)
@@ -28,9 +30,9 @@ json_string_t* json_string_new(string_t value)
     return json;
 }
 
-void json_string_write_internal(json_string_t * json, stream_t * stream)
+size_t json_string_write_internal(json_string_t * json, json_conf_t * json_conf, json_stream_t * stream)
 {
-    printf("\"%s\"", json->value);
+    return stream->write(stream, "\"%s\"", json->value);
 }
 void json_string_destroy_internal(json_string_t * json)
 {
@@ -38,10 +40,7 @@ void json_string_destroy_internal(json_string_t * json)
     {
         return;
     }
-    if(json->value)
-    {
-        json_free(json->value);
-    }
+    json_free(json->value);
     json_free(json);
 }
 
@@ -52,9 +51,6 @@ string_t json_string_get(json_string_t * json)
 
 void json_string_set(json_string_t * json, string_t value)
 {
-    if (json->value)
-    {
-        json_free(json->value);
-    }
+    json_free(json->value);
     json->value = strdup(value);
 }

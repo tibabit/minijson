@@ -100,8 +100,7 @@ void            json_string_set(json_string_t * json, string_t value);
 
 /*************** I/O *************************/
 
-void json_print		(void * json);
-//void json_sprint	(void * json, string_t buffer, size_t maxlen, size_t * outlen);
+size_t json_print	(void * json);
 
 void json_destroy	(void * json);
 

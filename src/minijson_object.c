@@ -15,6 +15,8 @@
 #include "minijson_memory.h"
 #include "collection.h"
 #include "key_value_pair.h"
+#include "minijson_stream.h"
+#include "minijson_conf.h"
 
 // DECORATION MACROS
 
@@ -30,7 +32,7 @@ typedef struct json_object
 
 size_t json_object_write_internal(json_object_t * json,
         json_conf_t * json_conf,
-        stream_t * stream);
+        json_stream_t * stream);
 void json_object_destroy_internal(json_object_t * json_obj);
 
 json_object_t * json_object_new(void)
@@ -78,13 +80,13 @@ void json_object_destroy_internal(json_object_t * json_obj)
 
 size_t json_object_write_internal(json_object_t * json,
         json_conf_t * json_conf,
-        stream_t * stream)
+        json_stream_t * stream)
 {
     int i = 0;
     size_t total_chars = 0, num_children = 0;
 
-    total_chars += fprintf(stream, "%c", JSON_OBJECT_BEGIN);
-    total_chars += fprintf(stream, "%s", json_conf->new_line);
+    total_chars += stream->write(stream, "%c", JSON_OBJECT_BEGIN);
+    total_chars += stream->write(stream, "%s", json_conf->new_line);
 
     json_conf->set_level(json_conf, json_conf->level + 1);
     num_children = collection_count(json->children);
@@ -95,18 +97,18 @@ size_t json_object_write_internal(json_object_t * json,
         collection_at(json->children, i, &pair);
         json_base_t * child = (json_base_t *)(key_value_pair_get_value(pair));
 
-        total_chars += fprintf(stream, "%s", json_conf->level_spaces);
+        total_chars += stream->write(stream, "%s", json_conf->level_spaces);
 
-        total_chars += fprintf(stream, "\"%s\" : ", key_value_pair_get_key(pair));
+        total_chars += stream->write(stream, "\"%s\" : ", key_value_pair_get_key(pair));
         total_chars += child->write(child, json_conf, stream);
 
-        total_chars += fprintf(stream, "%s", i == num_children - 1 ? "" : ",");
-        total_chars += fprintf(stream, "%s", json_conf->new_line);
+        total_chars += stream->write(stream, "%s", i == num_children - 1 ? "" : ",");
+        total_chars += stream->write(stream, "%s", json_conf->new_line);
                 
     }
 
     json_conf->set_level(json_conf, json_conf->level - 1);
-    total_chars += fprintf(stream, "%c", JSON_OBJECT_END);
+    total_chars += stream->write(stream, "%c", JSON_OBJECT_END);
 
     return total_chars;
 }

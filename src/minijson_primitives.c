@@ -12,6 +12,7 @@
 #include <string.h>
 
 #include "minijson_memory.h"
+#include "minijson_stream.h"
 
 #define JSON_PRIMITIVE_NEW_DEFINITION(type_short, type)                                         \
     json_##type_short##_t * json_##type_short##_new(type value)                                 \
@@ -52,9 +53,9 @@
 #define JSON_PRIMITIVE_WRITE_DEFINITION(type_short, format)			\
     size_t json_##type_short##_write_internal(json_##type_short##_t * json,     \
             json_conf_t * json_conf,                                            \
-            stream_t * stream)						        \
+            json_stream_t * stream)						\
     {										\
-        return fprintf(stream, format, json->data.value_##type_short);		\
+        return stream->write(stream, format, json->data.value_##type_short);	\
     }
 
 typedef struct json_primitive
