@@ -1,10 +1,10 @@
 minijson
 ========
 [![Build Status](https://travis-ci.org/tibabit/minijson.svg?branch=master)](https://travis-ci.org/tibabit/minijson)
+[![Build status](https://ci.appveyor.com/api/projects/status/2b0w8mlc9cevjes9/branch/master)](https://ci.appveyor.com/project/tibabit/minijson/branch/master)
 [![license](https://img.shields.io/badge/license-GPL3-blue.svg)](LICENSE.md)
-[![Code Climate](https://codeclimate.com/github/tibabit/minijson/badges/gpa.svg)](https://codeclimate.com/github/tibabit/minijson)
-[![Test Coverage](https://codeclimate.com/github/tibabit/minijson/badges/coverage.svg)](https://codeclimate.com/github/tibabit/minijson/coverage)
 [![Issue Count](https://codeclimate.com/github/tibabit/minijson/badges/issue_count.svg)](https://codeclimate.com/github/tibabit/minijson)
+
 
 ### Overview
 This is a very lightweight library for working with `JSON` type objects in `C/C++`. It provides a very simpe API to create and manipulate json objects. For now following datatypes or supported -
