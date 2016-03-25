@@ -7,8 +7,12 @@
 
 #include "../src/minijson.h"
 
+#include <stdio.h>
+
 int main()
 {
+    string_t buf = NULL;
+
     json_array_t * json_array = json_array_new();
     json_array_add(json_array, json_string_new("Circle"));
     json_array_add(json_array, json_int_new(100));
@@ -20,7 +24,9 @@ int main()
     
     json_array_add(json_array, style);
 
-    json_print_pretty(json_array);
+    json_to_string(json_array, &buf);
+
+    printf("%s\n", buf);
 
     json_destroy(json_array);
 

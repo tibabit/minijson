@@ -102,6 +102,7 @@ void            json_string_set(json_string_t * json, string_t value);
 
 size_t json_print	(void * json);
 size_t json_print_pretty(void * json);
+size_t json_to_string	(void * json, string_t ** buf);
 
 void json_destroy	(void * json);
 

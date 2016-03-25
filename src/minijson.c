@@ -44,6 +44,19 @@ size_t json_print_pretty(void * json)
 {
     return json_print_internal(json, 4, true);
 }
+size_t json_to_string(void * json, string_t ** buf)
+{
+    json_conf_t * conf = json_conf_new(0, false);
+
+    json_base_t * json_base = (json_base_t *)json;
+    json_stream_t * stream = json_stream_new(JSON_STREAM_BUFFER, (void**)buf);
+    size_t len = json_base->write(json, conf, stream);
+
+    json_conf_destroy(conf);
+    json_stream_destroy(stream);
+
+    return len;
+}
 
 void json_destroy(void * json)
 {
