@@ -18,7 +18,7 @@ int main()
     json_object_add(shape, "name", json_string_new("Circle"));
     json_object_add(shape, "height", json_int_new(100));
     json_object_add(shape, "width", json_int_new(200));
-    json_object_add(shape, "sqrt", json_float_new(20.98));
+    json_object_add(shape, "sqrt", json_double_new(20.98));
 
 
     json_object_t * style = json_object_new();

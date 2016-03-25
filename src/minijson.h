@@ -42,46 +42,6 @@ void            json_uint_set(json_uint_t * json, uint value);
 
 /**************** END: JSON unsigned int ****************/
 
-/**************** BEGIN: JSON short ****************/
-
-json_short_t*	json_short_new(short value);
-short           json_short_get(json_short_t * json);
-void            json_short_set(json_short_t * json, short value);
-
-/**************** END: JSON short ****************/
-
-/**************** BEGIN: JSON unsigned short ****************/
-
-json_ushort_t*	json_ushort_new(ushort value);
-ushort          json_ushort_get(json_ushort_t * json);
-void            json_ushort_set(json_ushort_t * json, ushort value);
-
-/**************** END: JSON unsigned short ****************/
-
-/**************** BEGIN: JSON long ****************/
-
-json_long_t*	json_long_new(long value);
-long            json_long_get(json_long_t * json);
-void            json_long_set(json_long_t * json, long value);
-
-/**************** END: JSON long ****************/
-
-/**************** BEGIN: JSON unsigned long ****************/
-
-json_ulong_t*	json_ulong_new(ulong value);
-ulong           json_ulong_get(json_ulong_t * json);
-void            json_ulong_set(json_ulong_t * json, ulong value);
-
-/**************** END: JSON unsigned long ****************/
-
-/**************** BEGIN: JSON float ****************/
-
-json_float_t*	json_float_new(float value);
-float           json_float_get(json_float_t * json);
-void            json_float_set(json_float_t * json, float value);
-
-/**************** END: JSON float ****************/
-
 /**************** BEGIN: JSON double ****************/
 
 json_double_t*	json_double_new(double value);

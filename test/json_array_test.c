@@ -17,7 +17,7 @@ int main()
     json_array_add(json_array, json_string_new("Circle"));
     json_array_add(json_array, json_int_new(100));
     json_array_add(json_array, json_int_new(200));
-    json_array_add(json_array, json_float_new(20.98));
+    json_array_add(json_array, json_double_new(20.98));
 
     json_object_t * style = json_object_new();
     json_object_add(style, "color", json_string_new("red"));

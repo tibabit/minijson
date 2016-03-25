@@ -66,11 +66,6 @@ typedef struct json_primitive
     {
         int 		value_int;
         unsigned int	value_uint;
-        short		value_short;
-        unsigned short	value_ushort;
-        long		value_long;
-        unsigned long	value_ulong;
-        float		value_float;
         double		value_double;
     }data;
 }json_primitive_t;
@@ -83,45 +78,20 @@ void json_primitive_destroy(json_primitive_t * primitive)
 
 JSON_PRIMITIVE_DESTROY_DEFINITION(int)
 JSON_PRIMITIVE_DESTROY_DEFINITION(uint)
-JSON_PRIMITIVE_DESTROY_DEFINITION(short)
-JSON_PRIMITIVE_DESTROY_DEFINITION(ushort)
-JSON_PRIMITIVE_DESTROY_DEFINITION(long)
-JSON_PRIMITIVE_DESTROY_DEFINITION(ulong)
-JSON_PRIMITIVE_DESTROY_DEFINITION(float)
 JSON_PRIMITIVE_DESTROY_DEFINITION(double)
 
 JSON_PRIMITIVE_WRITE_DEFINITION(int, 	"%d")
 JSON_PRIMITIVE_WRITE_DEFINITION(uint, 	"%u")
-JSON_PRIMITIVE_WRITE_DEFINITION(short, 	"%d")
-JSON_PRIMITIVE_WRITE_DEFINITION(ushort, "%u")
-JSON_PRIMITIVE_WRITE_DEFINITION(long, 	"%ld")
-JSON_PRIMITIVE_WRITE_DEFINITION(ulong, 	"%lu")
-JSON_PRIMITIVE_WRITE_DEFINITION(float, 	"%f")
 JSON_PRIMITIVE_WRITE_DEFINITION(double, "%lf")
 
 JSON_PRIMITIVE_NEW_DEFINITION(int,      int)
 JSON_PRIMITIVE_NEW_DEFINITION(uint, 	uint)
-JSON_PRIMITIVE_NEW_DEFINITION(short, 	short)
-JSON_PRIMITIVE_NEW_DEFINITION(ushort, 	ushort)
-JSON_PRIMITIVE_NEW_DEFINITION(long, 	long)
-JSON_PRIMITIVE_NEW_DEFINITION(ulong, 	ulong)
-JSON_PRIMITIVE_NEW_DEFINITION(float, 	float)
 JSON_PRIMITIVE_NEW_DEFINITION(double, 	double)
 
 JSON_PRIMITIVE_GET_DEFINITION(int,	int)
 JSON_PRIMITIVE_GET_DEFINITION(uint, 	uint)
-JSON_PRIMITIVE_GET_DEFINITION(short, 	short)
-JSON_PRIMITIVE_GET_DEFINITION(ushort, 	ushort)
-JSON_PRIMITIVE_GET_DEFINITION(long, 	long)
-JSON_PRIMITIVE_GET_DEFINITION(ulong, 	ulong)
-JSON_PRIMITIVE_GET_DEFINITION(float, 	float)
 JSON_PRIMITIVE_GET_DEFINITION(double, 	double)
 
 JSON_PRIMITIVE_SET_DEFINITION(int,	int)
 JSON_PRIMITIVE_SET_DEFINITION(uint, 	uint)
-JSON_PRIMITIVE_SET_DEFINITION(short, 	short)
-JSON_PRIMITIVE_SET_DEFINITION(ushort, 	ushort)
-JSON_PRIMITIVE_SET_DEFINITION(long, 	long)
-JSON_PRIMITIVE_SET_DEFINITION(ulong, 	ulong)
-JSON_PRIMITIVE_SET_DEFINITION(float, 	float)
 JSON_PRIMITIVE_SET_DEFINITION(double, 	double)
