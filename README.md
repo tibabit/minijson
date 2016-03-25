@@ -10,11 +10,6 @@ This is a very lightweight library for working with `JSON` type objects in `C/C+
 ```C
  - json_int_t       : int
  - json_uint_t      : unsigned int
- - json_short_t     : short
- - json_ushort_t    : unsigned short
- - json_long_t      : long
- - json_ulong_t     : unsigned long
- - json_float_t     : float
  - json_double_t    : double
  - json_string_t    : char *
 ```
