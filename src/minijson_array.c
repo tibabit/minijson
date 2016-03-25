@@ -97,6 +97,7 @@ size_t json_array_write_internal(json_array_t * json,
 
     json_conf->set_level(json_conf, json_conf->level - 1);
 
+    total_chars += stream->write(stream, "%s", json_conf->level_spaces);
     total_chars += stream->write(stream, "%c", JSON_ARRAY_END);
 
     return total_chars;

@@ -14,15 +14,21 @@ int main()
 {
     string_t *keys;
     int num_keys, i;
-    json_object_t * json_obj = json_object_new();
-    json_object_add(json_obj, "name", json_string_new("Circle"));
-    json_object_add(json_obj, "height", json_int_new(100));
-    json_object_add(json_obj, "width", json_int_new(200));
-    json_object_add(json_obj, "sqrt", json_float_new(20.98));
+    json_object_t * shape = json_object_new();
+    json_object_add(shape, "name", json_string_new("Circle"));
+    json_object_add(shape, "height", json_int_new(100));
+    json_object_add(shape, "width", json_int_new(200));
+    json_object_add(shape, "sqrt", json_float_new(20.98));
 
-    json_print(json_obj);
 
-    num_keys = json_object_keys(json_obj, &keys);
+    json_object_t * style = json_object_new();
+    json_object_add(style, "color", json_string_new("red"));
+    
+    json_object_add(shape, "style", style);
+
+    json_print_pretty(shape);
+
+    num_keys = json_object_keys(shape, &keys);
 
     for (i = 0; i < num_keys; i++)
     {
@@ -30,7 +36,7 @@ int main()
     }
     free(keys);
 
-    json_destroy(json_obj);
+    json_destroy(shape);
 
     return 0;
 }

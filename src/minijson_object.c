@@ -108,6 +108,7 @@ size_t json_object_write_internal(json_object_t * json,
     }
 
     json_conf->set_level(json_conf, json_conf->level - 1);
+    total_chars += stream->write(stream, "%s", json_conf->level_spaces);
     total_chars += stream->write(stream, "%c", JSON_OBJECT_END);
 
     return total_chars;

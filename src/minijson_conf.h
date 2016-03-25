@@ -2,6 +2,7 @@
 #define MINIJSON_CONF_H_
 
 #include "minijson_internal.h"
+#include <stdbool.h>
 
 typedef struct json_conf
 {
@@ -13,7 +14,7 @@ typedef struct json_conf
 }json_conf_t;
 
 void json_conf_set_level_internal(json_conf_t * conf, int level);
-json_conf_t * json_conf_new();
+json_conf_t * json_conf_new(int indent, bool print_new_line);
 void json_conf_destroy(json_conf_t * conf);
 
 #endif /* MINIJSON_CONF_H */

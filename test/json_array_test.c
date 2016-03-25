@@ -15,7 +15,12 @@ int main()
     json_array_add(json_array, json_int_new(200));
     json_array_add(json_array, json_float_new(20.98));
 
-    json_print(json_array);
+    json_object_t * style = json_object_new();
+    json_object_add(style, "color", json_string_new("red"));
+    
+    json_array_add(json_array, style);
+
+    json_print_pretty(json_array);
 
     json_destroy(json_array);
 
