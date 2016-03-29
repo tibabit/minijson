@@ -1,7 +1,7 @@
 minijson
 ========
 [![Build Status](https://travis-ci.org/tibabit/minijson.svg?branch=master)](https://travis-ci.org/tibabit/minijson)
-[![license](https://img.shields.io/badge/license-GPL3-blue.svg)](LICENSE.md)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 [![Issue Count](https://codeclimate.com/github/tibabit/minijson/badges/issue_count.svg)](https://codeclimate.com/github/tibabit/minijson)
 
 ### Overview
