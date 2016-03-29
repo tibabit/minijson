@@ -1,2 +1,3 @@
-bin_PROGRAMS = minijson
-minijson_SOURCES = collection.c key_value_pair.c
+AUTOMAKE_OPTIONS = foreign
+SUBDIRS = src
+EXTRA_DIST = autogen.sh
