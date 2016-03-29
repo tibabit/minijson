@@ -44,7 +44,7 @@ size_t json_print_pretty(void * json)
 {
     return json_print_internal(json, 4, true);
 }
-size_t json_to_string(void * json, string_t ** buf)
+size_t json_to_string(void * json, string_t * buf)
 {
     json_conf_t * conf = json_conf_new(0, false);
 

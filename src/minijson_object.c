@@ -99,7 +99,7 @@ size_t json_object_write_internal(json_object_t * json,
 
         total_chars += stream->write(stream, "%s", json_conf->level_spaces);
 
-        total_chars += stream->write(stream, "\"%s\" : ", key_value_pair_get_key(pair));
+        total_chars += stream->write(stream, "\"%s\":", key_value_pair_get_key(pair));
         total_chars += child->write(child, json_conf, stream);
 
         total_chars += stream->write(stream, "%s", i == num_children - 1 ? "" : ",");
