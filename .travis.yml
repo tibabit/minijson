@@ -1,7 +1,10 @@
 
+install make
+
 language: c
 
 compiler:
   - gcc
+  - clang
 
-script: make clean && make
+./configure && make
