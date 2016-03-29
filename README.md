@@ -1,9 +1,7 @@
 minijson
 ========
 [![Build Status](https://travis-ci.org/tibabit/minijson.svg?branch=master)](https://travis-ci.org/tibabit/minijson)
-[![license](https://img.shields.io/badge/license-GPL3-blue.svg)](LICENSE.md)
-[![Code Climate](https://codeclimate.com/github/tibabit/minijson/badges/gpa.svg)](https://codeclimate.com/github/tibabit/minijson)
-[![Test Coverage](https://codeclimate.com/github/tibabit/minijson/badges/coverage.svg)](https://codeclimate.com/github/tibabit/minijson/coverage)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 [![Issue Count](https://codeclimate.com/github/tibabit/minijson/badges/issue_count.svg)](https://codeclimate.com/github/tibabit/minijson)
 
 ### Overview
