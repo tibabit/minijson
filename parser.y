@@ -1,0 +1,7 @@
+
+%%
+
+input:  /* empty line */
+
+%%
+
