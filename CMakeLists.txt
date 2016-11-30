@@ -12,9 +12,11 @@ FLEX_TARGET(scanner "${PROJECT_SOURCE_DIR}/scanner.l" "${PROJECT_SOURCE_DIR}/min
 
 ADD_FLEX_BISON_DEPENDENCY(scanner parser)
 
-file(GLOB minijson_SRC src/*.c)
+file(GLOB minijson_SRC "${PROJECT_SOURCE_DIR}/src/*.c")
 
 add_library(minijson "${minijson_SRC}"
     "${BISON_parser_OUTPUTS}"
     "${FLEX_scanner_OUTPUTS}")
 
+
+add_subdirectory(test)
