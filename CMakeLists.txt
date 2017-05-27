@@ -5,10 +5,14 @@ project(minijson C)
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
 find_package(BISON)
-BISON_TARGET(parser "${PROJECT_SOURCE_DIR}/parser.y" "${PROJECT_SOURCE_DIR}/minijson_parser.c")
+if (BISON_FOUND)
+    BISON_TARGET(parser "${PROJECT_SOURCE_DIR}/parser.y" "${PROJECT_SOURCE_DIR}/minijson_parser.c")
+endif()
 
 find_package(FLEX)
-FLEX_TARGET(scanner "${PROJECT_SOURCE_DIR}/scanner.l" "${PROJECT_SOURCE_DIR}/minijson_scanner.c")
+if (FLEX_FOUND)
+    FLEX_TARGET(scanner "${PROJECT_SOURCE_DIR}/scanner.l" "${PROJECT_SOURCE_DIR}/minijson_scanner.c")
+endif()
 
 ADD_FLEX_BISON_DEPENDENCY(scanner parser)
 

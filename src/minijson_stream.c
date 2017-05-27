@@ -12,7 +12,7 @@
 #define NULL_DIVICE     "NUL"
 #else
 #define NULL_DIVICE     "/dev/null"
-#endif 
+#endif
 
 
 size_t json_stream_write_buffer_internal(json_stream_t * json_stream, string_t format, ...);
