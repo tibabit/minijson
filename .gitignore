@@ -4,3 +4,4 @@ Debug/
 bin/
 minijson_parser*
 minijson_scanner*
+tags
