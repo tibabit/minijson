@@ -23,4 +23,5 @@ add_library(minijson "${minijson_SRC}"
     "${FLEX_scanner_OUTPUTS}")
 
 
+include(CTest)
 add_subdirectory(test)

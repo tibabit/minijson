@@ -5,8 +5,8 @@
  *      Author: vikash
  */
 
-#include "../src/minijson.h"
-#include "assert/assert.h"
+#include "minijson.h"
+#include "assert.h"
 
 #include <stdio.h>
 
