@@ -28,6 +28,8 @@ json_stream_t * json_stream_new(json_stream_type_t type, void **ptr)
     {
         json_stream->write = json_stream_write_buffer_internal;
         json_stream->buffer.ptr = (string_t*)ptr;
+        json_stream->buffer.size = 0;
+        json_stream->buffer.capacity = 0;
     }
     else
     {
@@ -35,9 +37,9 @@ json_stream_t * json_stream_new(json_stream_type_t type, void **ptr)
         json_stream->stream = (FILE*) ptr;
     }
 
-    json_stream->null = fopen(NULL_DIVICE, "w");
+    json_stream->null_dev_ptr = fopen(NULL_DIVICE, "w");
 
-    if (json_stream->null == NULL)
+    if (json_stream->null_dev_ptr == NULL)
     {
         json_stream_destroy(json_stream);
         return NULL;
@@ -47,6 +49,9 @@ json_stream_t * json_stream_new(json_stream_type_t type, void **ptr)
 }
 void json_stream_destroy(json_stream_t * json_stream)
 {
+    if (json_stream == NULL) return;
+
+    if (json_stream->null_dev_ptr) fclose(json_stream->null_dev_ptr);
     json_free(json_stream);
 }
 
@@ -55,7 +60,7 @@ size_t json_stream_write_buffer_internal(json_stream_t * json_stream, string_t f
     va_list args;
     va_start(args, format);
 
-    size_t len = vfprintf(json_stream->null, format, args);
+    size_t len = vfprintf(json_stream->null_dev_ptr, format, args);
 
     va_end(args);
 

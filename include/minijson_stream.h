@@ -18,7 +18,7 @@ typedef struct json_stream
         void * stream;
     };
     size_t (*write)(json_stream_t * json_stream, string_t format, ...);
-    FILE * null;
+    FILE * null_dev_ptr;
 }json_stream_t;
 
 typedef enum
