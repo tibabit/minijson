@@ -41,4 +41,6 @@ int main()
     register_module(json_stream);
 
     run_all();
+
+    return 0;
 }

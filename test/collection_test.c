@@ -79,4 +79,6 @@ int main()
     register_module(collection);
 
     run_all();
+
+    return 0;
 }
