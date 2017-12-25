@@ -1,4 +1,4 @@
-#include "assert.h"
+#include "assertc.h"
 #include "minijson_stream.h"
 
 module(json_stream)

@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "collection.h"
-#include "assert.h"
+#include "assertc.h"
 
 module(collection)
 {

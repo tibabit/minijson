@@ -6,7 +6,7 @@
  */
 
 #include "minijson.h"
-#include "assert.h"
+#include "assertc.h"
 
 #include <stdio.h>
 

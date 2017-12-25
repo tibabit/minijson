@@ -1,3 +1,4 @@
 [submodule "test/assertc"]
 	path = test/assertc
 	url = https://github.com/tibabit/assertc
+        branch = master

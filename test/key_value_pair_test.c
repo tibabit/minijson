@@ -5,8 +5,8 @@
  *      Author: vikash
  */
 
-#include "assert.h"
 #include "key_value_pair.h"
+#include "assertc.h"
 
 module(key_value_pair)
 {
