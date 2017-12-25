@@ -16,6 +16,8 @@ module(key_value_pair)
         key_value_pair_t * pair = key_value_pair_new("key", &value);
 
         expect_int(pair) to not be equal(NULL);
+
+        key_value_pair_destroy(pair);
     } end
     test("should store a number as value")
     {
@@ -27,6 +29,7 @@ module(key_value_pair)
 
         expect_string(key) to be equal("key");
         expect_int(*ptr) to be equal(10);
+        key_value_pair_destroy(pair);
     } end
     test("should store a string as value")
     {
@@ -38,6 +41,7 @@ module(key_value_pair)
 
         expect_string(key) to be equal("key");
         expect_string(ptr) to be equal("pair_value");
+        key_value_pair_destroy(pair);
     } end
 }
 

@@ -30,6 +30,8 @@ module(json_stream)
             expect_string(buf) to be equal ("Hello World!\n100 Hello World Again 10.400000\n");
 
             json_stream_destroy(stream);
+
+            free(buf);
         } end
     } end
 }

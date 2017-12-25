@@ -67,8 +67,8 @@ module(collection)
             int *v;
             collection_at(c, 0, &v);
             expect_int(*v) to be equal(*p);
+            free(p);
             collection_destroy(c);
-
         } end
 
     } end

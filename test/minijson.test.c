@@ -34,11 +34,13 @@ module (minijson)
 
             json_destroy(json_array);
 
+            free(buf);
+
         } end
 
         test("#json_object")
         {
-            string_t buf;
+            string_t buf = NULL;
             int num_keys, i;
 
             json_object_t * shape = json_object_new();
@@ -58,7 +60,7 @@ module (minijson)
 
             json_destroy(shape);
 
-
+            free(buf);
         } end
     } end
 }
