@@ -68,7 +68,7 @@ matrix:
 
 before_install:
     - eval "${MATRIX_EVAL}"
-install: cmake . && make && make test
+install: cmake . && make
 
 script:
     - ./bin/test/collection
