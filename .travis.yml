@@ -71,7 +71,7 @@ before_install:
 install: cmake . && make
 
 script:
-    - ./bin/test/collection
-    - ./bin/test/json_stream
-    - ./bin/test/key_value_pair
-    - ./bin/test/minijson_api
+    - ./test/collection
+    - ./test/json_stream
+    - ./test/key_value_pair
+    - ./test/minijson_api
