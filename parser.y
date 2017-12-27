@@ -2,20 +2,25 @@
 %define api.token.prefix {TOK_}
 %define parse.error verbose
 
-%token      EOF         0       "end of file"
-%token      COMMA       ','     "comma"
-%token      COLON       ':'     "semicolon"
-%token      LB          '['     "Left bracket"
-%token      RB          ']'     "Right bracket"
-%token      LCB         '{'     "Left curly bracket"
-%token      RCB         '}'     "Right curly bracket"
+%token      EOF          0      "end of input"
+%token      LB          '['
+%token      RB          ']'
+%token      LCB         '{'
+%token      RCB         '}'
+%token      COLON       ':'
+%token      COMMA       ','
 
 %union
 {
-    int _int;
-    double _double;
-    unsigned char _bool:1;
-    char* _string;
+    int             _int;
+    double          _double;
+    unsigned char   _bool:1;
+    string_t        _string;
+    void*           _json_value;
+    json_object_t*  _json_object;
+    json_array_t*   _json_array;
+    json_object_t*  _json_expr_list;
+    json_array_t*   _json_value_list;
 }
 
 %token <_int>       INT
@@ -23,47 +28,66 @@
 %token <_bool>      BOOLEAN
 %token <_string>    STRING
 
+%type <_json_value>       json_value
+%type <_json_object>      json_object
+%type <_json_array>       json_array
+%type <_json_expr_list>   json_expr_list
+%type <_json_value_list>  json_value_list
+
 %code requires
 {
 #include <stdio.h>
+#include "minijson.h"
+#include "key_value_pair.h"
 }
 %code
 {
 #include <stdio.h>
-void yyerror(const char *msg);
+void yyerror(json_object_t** parsed_object, const char *msg);
 }
 
-%%
-
-input:  /* empty line */
-     | input json_object
-
-json_object: LCB json_expr_list RCB
-
-
-json_expr_list: json_expr
-              | json_expr_list COMMA json_expr
-
-json_expr: /*empty line */
-         | json_key COLON json_value
-
-json_key: STRING            { fprintf(stdout, "KEY: %s\n", $1); }
-
-json_value: STRING          { fprintf(stdout, "VALUE %s\n", $1); }
-          | INT             { fprintf(stdout, "VALUE %d\n", $1); }
-          | DOUBLE          { fprintf(stdout, "VALUE\n"); }
-          | BOOLEAN         { fprintf(stdout, "VALUE\n"); }
-          | json_array      { fprintf(stdout, "json_array\n"); }
-          | json_object     { fprintf(stdout, "STRINGn"); }
-
-json_array : LB json_value_list RB
-
-json_value_list: json_value
-               | json_value_list COMMA json_value
+%parse-param {json_object_t ** parsed_object}
+%debug
 
 %%
 
-void yyerror(const char *msg)
+input:
+    json_object     { *parsed_object = $<_json_object>1; }
+    | json_array    { *parsed_object = $<_json_array>1;  }
+    ;
+
+json_object:
+    LCB RCB                                              { $$ = json_object_new();                                                    }
+    | LCB json_expr_list RCB      { $$ = $<_json_expr_list>2; }
+    ;
+
+json_expr_list:
+    STRING COLON json_value                           { $$ = json_object_new(); json_object_add($$, $<_string>1, $<_json_value>2); }
+    | json_expr_list COMMA STRING COLON json_value      { json_object_add($<_json_expr_list>1, $<_string>3, $<_json_value>5);        }
+    ;
+
+json_array:
+    LB json_value_list RB       { $$ = $<_json_value_list>2; }
+    ;
+
+json_value_list:
+    %empty                                  { $$ = json_array_new();                                      }
+    | json_value                            { $$ = json_array_new(); json_array_add($$, $<_json_value>1); }
+    | json_value_list COMMA json_value      { json_array_add($<_json_value_list>1, $<_json_value>3);      }
+    ;
+
+json_value:
+    STRING              { $$ = json_string_new($<_string>1); }
+    | INT               { $$ = json_int_new($<_int>1);       }
+    | DOUBLE            { $$ = json_double_new($<_double>1); }
+    | BOOLEAN           { $$ = json_int_new($<_bool>1);      }
+    | json_array        { $$ = $<_json_array>1;              }
+    | json_object       { $$ = $<_json_object>1;             }
+    ;
+
+%%
+
+void yyerror(json_object_t** parsed_object, const char *msg)
 {
     fprintf(stderr, "%s\n", msg);
 }
