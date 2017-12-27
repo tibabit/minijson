@@ -11,4 +11,5 @@ test(collection ${CMAKE_CURRENT_SOURCE_DIR}/collection_test.c)
 test(key_value_pair ${CMAKE_CURRENT_SOURCE_DIR}/key_value_pair_test.c)
 test(json_stream ${CMAKE_CURRENT_SOURCE_DIR}/json_stream.test.c)
 test(minijson_api ${CMAKE_CURRENT_SOURCE_DIR}/minijson.test.c)
+test(parser ${CMAKE_CURRENT_SOURCE_DIR}/parser_test.c)
 
