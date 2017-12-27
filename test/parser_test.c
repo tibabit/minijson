@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "assertc.h"
 
 #include "minijson.h"
@@ -49,9 +50,18 @@ module(minijson_parse)
         {
             json_object_t *json = NULL;
             const string_t input = "{}";
+            string_t buf = NULL;
             json = json_parse(input, strlen(input));
 
             expect_ptr(json) to not be equal(NULL);
+
+            json_to_string(json, &buf);
+
+            expect_string(buf) to be equal(input);
+
+            json_destroy(json);
+            free(buf);
+
         } end
     } end
 }

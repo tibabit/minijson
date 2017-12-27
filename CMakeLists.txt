@@ -17,6 +17,7 @@ if (FLEX_FOUND)
     FLEX_TARGET(scanner
         "${CMAKE_CURRENT_SOURCE_DIR}/scanner.l"
         "${CMAKE_CURRENT_SOURCE_DIR}/minijson_scanner.c"
+        COMPILE_FLAGS "--header-file=${CMAKE_CURRENT_SOURCE_DIR}/minijson_scanner.h"
         )
 endif()
 

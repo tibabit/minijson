@@ -1,7 +1,3 @@
-
-%define api.token.prefix {TOK_}
-%define parse.error verbose
-
 %token      EOF          0      "end of input"
 %token      LB          '['
 %token      RB          ']'
@@ -43,11 +39,16 @@
 %code
 {
 #include <stdio.h>
-void yyerror(json_object_t** parsed_object, const char *msg);
+#include "minijson_scanner.h"
+void yyerror(void* scanner, json_object_t** parsed_object, const char *msg);
 }
 
-%parse-param {json_object_t ** parsed_object}
-%debug
+%define api.token.prefix {TOK_}
+%pure-parser
+%define parse.error verbose
+%lex-param {void *scanner}
+%parse-param {void *scanner} {json_object_t ** parsed_object}
+
 
 %%
 
@@ -57,7 +58,7 @@ input:
     ;
 
 json_object:
-    LCB RCB                                              { $$ = json_object_new();                                                    }
+    LCB RCB                       { $$ = json_object_new();   }
     | LCB json_expr_list RCB      { $$ = $<_json_expr_list>2; }
     ;
 
@@ -67,12 +68,12 @@ json_expr_list:
     ;
 
 json_array:
-    LB json_value_list RB       { $$ = $<_json_value_list>2; }
+    LB RB                         { $$ = json_array_new();     }
+    | LB json_value_list RB       { $$ = $<_json_value_list>2; }
     ;
 
 json_value_list:
-    %empty                                  { $$ = json_array_new();                                      }
-    | json_value                            { $$ = json_array_new(); json_array_add($$, $<_json_value>1); }
+    json_value                            { $$ = json_array_new(); json_array_add($$, $<_json_value>1); }
     | json_value_list COMMA json_value      { json_array_add($<_json_value_list>1, $<_json_value>3);      }
     ;
 
@@ -87,7 +88,7 @@ json_value:
 
 %%
 
-void yyerror(json_object_t** parsed_object, const char *msg)
+void yyerror(void* scanner, json_object_t** parsed_object, const char *msg)
 {
     fprintf(stderr, "%s\n", msg);
 }

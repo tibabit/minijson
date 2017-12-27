@@ -15,10 +15,10 @@
 #include "minijson_conf.h"
 #include "minijson_stream.h"
 #include "minijson_parser.h"
+#include "minijson_scanner.h"
 
 json_stream_t * json_stream_new();
 size_t json_print_internal(void * json, int indent, bool print_new_line);
-void yy_set_file(FILE* file);
 
 /*************** Begin: I/O *****************/
 
@@ -75,26 +75,19 @@ json_object_t *json_parse(const string_t buffer, const size_t len)
 {
     json_object_t *json = NULL;
     int err= 0;
-    FILE* file;
 
     if (buffer == NULL) return NULL;
 
-    file = fmemopen(buffer, len, "r");
-    if (file == NULL) return NULL;
+    yyscan_t json_scanner;
+    yylex_init(&json_scanner);
+    yy_scan_string(buffer, json_scanner);
+    err = yyparse(json_scanner, &json);
 
-    yy_set_file(file);
-
-    err = yyparse(&json);
+    yylex_destroy(json_scanner);
 
     if (err != 0)
     {
-        yy_set_file(NULL);
-        fclose(file);
         return NULL;
     }
-
-    yy_set_file(NULL);
-    fclose(file);
-
     return json;
 }
