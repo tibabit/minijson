@@ -66,5 +66,10 @@ size_t json_to_string   (void * json, string_t * buf);
 
 void json_destroy       (void * json);
 
+//==============================================================================
+// parsing
+//==============================================================================
+
+json_object_t *json_parse(const string_t buffer, const size_t len);
 
 #endif /* MINIJSON_H_ */
