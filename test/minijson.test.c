@@ -5,10 +5,12 @@
  *      Author: vikash
  */
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "minijson.h"
 #include "assertc.h"
 
-#include <stdio.h>
 
 module (minijson)
 {
