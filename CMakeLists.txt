@@ -9,6 +9,7 @@ if (BISON_FOUND)
     BISON_TARGET(parser
         "${CMAKE_CURRENT_SOURCE_DIR}/parser.y"
         "${CMAKE_CURRENT_SOURCE_DIR}/minijson_parser.c"
+        COMPILE_FLAGS "--name-prefix=minijson"
         )
 endif()
 
@@ -17,7 +18,7 @@ if (FLEX_FOUND)
     FLEX_TARGET(scanner
         "${CMAKE_CURRENT_SOURCE_DIR}/scanner.l"
         "${CMAKE_CURRENT_SOURCE_DIR}/minijson_scanner.c"
-        COMPILE_FLAGS "--header-file=${CMAKE_CURRENT_SOURCE_DIR}/minijson_scanner.h"
+        COMPILE_FLAGS "-Pminijson --header-file=${CMAKE_CURRENT_SOURCE_DIR}/minijson_scanner.h -CFa"
         )
 endif()
 

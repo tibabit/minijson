@@ -79,11 +79,11 @@ json_object_t *json_parse(const string_t buffer, const size_t len)
     if (buffer == NULL) return NULL;
 
     yyscan_t json_scanner;
-    yylex_init(&json_scanner);
-    yy_scan_string(buffer, json_scanner);
-    err = yyparse(json_scanner, &json);
+    minijsonlex_init(&json_scanner);
+    minijson_scan_string(buffer, json_scanner);
+    err = minijsonparse(json_scanner, &json);
 
-    yylex_destroy(json_scanner);
+    minijsonlex_destroy(json_scanner);
 
     if (err != 0)
     {
