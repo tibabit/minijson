@@ -53,24 +53,36 @@ void json_array_add(json_array_t * json, void * item)
 
 void json_array_destroy_internal(json_array_t * json)
 {
-    int i = 0;
+    int i = 0, count;
     if (json == NULL)
     {
         return;
     }
-    if (json->children)
+    count = json_array_count(json);
+    for(i = 0; i < count; i++)
     {
-        for(i = 0; i < collection_count(json->children); i++)
-        {
-            json_base_t * child;
-            collection_at(json->children, i, &child);
-
-
-            child->destroy(child);
-        }
-        collection_destroy(json->children);
+        json_base_t * child = json_array_get(json, i);
+        child->destroy(child);
     }
+    collection_destroy(json->children);
     json_free(json);
+}
+size_t json_array_count(json_array_t * json)
+{
+    if (json == NULL || json->children == NULL) return 0;
+
+    return collection_count(json->children);
+}
+
+json_base_t* json_array_get(json_array_t * json, size_t index)
+{
+    size_t count = json_array_count(json);
+    if (index >= count) return NULL;
+
+    json_base_t * child = NULL;
+    collection_at(json->children, index, &child);
+
+    return child;
 }
 
 size_t json_array_write_internal(json_array_t * json,

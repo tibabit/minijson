@@ -23,6 +23,8 @@ json_base_t *   json_object_get(json_object_t * json, const string_t key);
 
 json_array_t *  json_array_new(void);
 void            json_array_add(json_array_t * json, void * item);
+size_t          json_array_count(json_array_t * json);
+json_base_t*    json_array_get(json_array_t * json, size_t index);
 
 /**************** END: JSON Array ****************/
 
