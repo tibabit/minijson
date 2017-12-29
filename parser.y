@@ -34,7 +34,6 @@
 {
 #include <stdio.h>
 #include "minijson.h"
-#include "key_value_pair.h"
 }
 %code
 {
@@ -63,7 +62,7 @@ json_object:
     ;
 
 json_expr_list:
-    STRING COLON json_value                           { $$ = json_object_new(); json_object_add($$, $<_string>1, $<_json_value>2); }
+    STRING COLON json_value                           { $$ = json_object_new(); json_object_add($$, $<_string>1, $<_json_value>3); }
     | json_expr_list COMMA STRING COLON json_value      { json_object_add($<_json_expr_list>1, $<_string>3, $<_json_value>5);        }
     ;
 
