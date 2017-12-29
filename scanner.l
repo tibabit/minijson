@@ -16,7 +16,7 @@ string      \"([^\n\r\f\\"]|)*\"
 
 %%
 
-\"(\\.|[^\\"])*\"       { yylval->_string = yytext; return TOK_STRING;           }
+\"(\\.|[^\\"])*\"       { yylval->_string = yytext + 1; yylval->_string[strlen(yylval->_string) - 1] = 0; return TOK_STRING;           }
 [0-9]+                  { yylval->_int = atoi(yytext); return TOK_INT;           }
 [0-9]*\.[0-9]+          { yylval->_double = atof(yytext); return TOK_DOUBLE;     }
 [Tt][Rr][Uu][Ee]        { yylval->_bool = 1; return TOK_BOOLEAN;                 }
