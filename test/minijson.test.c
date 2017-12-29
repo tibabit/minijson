@@ -14,9 +14,16 @@
 
 module (minijson)
 {
-    suite("minijson")
+    suite("json array")
     {
-        test("#json_array")
+        test("#new")
+        {
+            json_array_t * json_array = json_array_new();
+            expect_ptr(json_array) to not be equal(NULL);
+            json_destroy(json_array);
+        } end
+
+        test("#add")
         {
             string_t buf = NULL;
 
@@ -39,7 +46,34 @@ module (minijson)
             free(buf);
 
         } end
+        test("#count")
+        {
+            json_array_t * json_array = json_array_new();
+            json_array_add(json_array, json_string_new("Circle"));
+            json_array_add(json_array, json_int_new(100));
+            json_array_add(json_array, json_int_new(200));
 
+            expect_int(json_array_count(json_array)) to be equal(3);
+
+            json_destroy(json_array);
+        } end
+        test("#get")
+        {
+            json_int_t *jint;
+            json_array_t * json_array = json_array_new();
+            json_array_add(json_array, json_int_new(100));
+
+            expect_int(json_array_count(json_array)) to be equal(1);
+            jint = (json_int_t*)json_array_get(json_array, 0);
+
+            expect_int(json_int_get(jint)) to be equal(100);
+            expect_ptr(json_array_get(json_array, 2)) to be equal(NULL);
+
+            json_destroy(json_array);
+        } end
+    } end
+    suite("json object")
+    {
         test("#json_object")
         {
             string_t buf = NULL;
